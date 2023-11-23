@@ -18,14 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AlohaPrimaryButton.positive(
-        key: UniqueKey(),
-        Text('Test'),
-        onTap: () {
-          print("yuhu");
-        },
-      ),
+    return const Scaffold(
+      body: Column(children: [Expanded(child: Center())]),
     );
   }
 }

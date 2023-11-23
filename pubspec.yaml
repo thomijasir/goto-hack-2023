@@ -12,6 +12,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.9
   sizer: ^2.0.15
+  animations: ^2.0.8
+  flutter_animate: ^4.2.0+1
   asphalt_aloha:
     git:
       url: git@source.golabs.io:asphalt/asphalt-aloha-flutter.git
@@ -23,11 +25,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  
   flutter_lints: ^3.0.1
 flutter:
   uses-material-design: true
 
   assets:
     - assets/
- 
