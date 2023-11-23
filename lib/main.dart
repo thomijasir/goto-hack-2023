@@ -1,5 +1,7 @@
 import 'package:asphalt_aloha/asphalt_aloha.dart';
 import 'package:flutter/material.dart';
+import 'package:goto_hack_2023/screens/_berli_home.dart';
+import 'package:goto_hack_2023/screens/berli_home.dart';
 import 'package:goto_hack_2023/screens/home_screen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   Widget _pageBuilder(BuildContext context, RouteSettings settings) {
-    return const HomeScreen();
+    return const HomeScreenMantap();
   }
 
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,12 +32,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-        builder: (context, orientation, deviceType) => AlohaApp(
-              theme: AlohaThemeData.gopayThemeLight(),
-              darkTheme: AlohaThemeData.gopayThemeDark(),
-              initialRoute: "home",
-              onGenerateRoute: generateRoute,
-              debugShowCheckedModeBanner: false,
-            ));
+      builder: (context, orientation, deviceType) => AlohaApp(
+        theme: AlohaThemeData.gopayThemeLight(),
+        darkTheme: AlohaThemeData.gopayThemeDark(),
+        initialRoute: "home",
+        onGenerateRoute: generateRoute,
+        debugShowCheckedModeBanner: false,
+      ),
+    );
   }
 }
