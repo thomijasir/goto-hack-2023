@@ -18,7 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(width: 100.w, child: svgHomePlaceholder),
+      body: Container(
+        width: 100.w,
+        decoration: const BoxDecoration(color: Color(0xFFEEEFF2)),
+        child: Column(
+          children: [svgHomePlaceholder],
+        ),
+      ),
     );
   }
 }
