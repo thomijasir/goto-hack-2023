@@ -4,10 +4,16 @@ import 'package:goto_hack_2023/constants/nav_items.dart';
 import 'package:goto_hack_2023/screens/nav_item.dart';
 
 class BottomNavbarWidget extends StatelessWidget {
+  final List<NavItem> navItems;
   final Function? showHiddenMenus;
   final bool? draggable;
 
-  const BottomNavbarWidget({super.key, this.showHiddenMenus, this.draggable});
+  const BottomNavbarWidget({
+    super.key,
+    this.showHiddenMenus,
+    this.draggable,
+    required this.navItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,9 @@ class BottomNavbarWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            for (var entry in navConstants.entries.take(4))
+            for (var entry in navItems)
               NavigationItem(
-                navItem: entry.value,
+                navItem: entry,
                 showHiddenMenus: showHiddenMenus,
                 draggable: draggable,
               ),

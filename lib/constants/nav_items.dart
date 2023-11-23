@@ -1,22 +1,47 @@
 class NavItem {
   final String assetName;
   final String text;
-  final String id;
 
   const NavItem({
     required this.assetName,
     required this.text,
-    required this.id,
   });
 }
 
 const Map<String, NavItem> navConstants = {
-  'pln': NavItem(assetName: 'assets/pln.svg', text: 'PLN', id: '1'),
-  'cable': NavItem(assetName: 'assets/cable.svg', text: 'Cable & TV', id: '2'),
-  'pdam': NavItem(assetName: 'assets/pdam.svg', text: 'PDAM', id: '3'),
-  'bpjs': NavItem(assetName: 'assets/bpjs.svg', text: 'BPJS', id: '4'),
-  'pln2': NavItem(assetName: 'assets/pln.svg', text: 'TES2', id: '5'),
-  'cable2': NavItem(assetName: 'assets/cable.svg', text: 'TES1', id: '6'),
-  'pdam2': NavItem(assetName: 'assets/pdam.svg', text: 'TES3', id: '7'),
-  'bpjs2': NavItem(assetName: 'assets/bpjs.svg', text: 'TES4', id: '8'),
+  'pln': NavItem(assetName: 'assets/pln.svg', text: 'PLN'),
+  'cable': NavItem(assetName: 'assets/cable.svg', text: 'Cable & TV'),
+  'pdam': NavItem(assetName: 'assets/pdam.svg', text: 'PDAM'),
+  'bpjs': NavItem(assetName: 'assets/bpjs.svg', text: 'BPJS'),
+  'pln2': NavItem(assetName: 'assets/pln.svg', text: 'TES2'),
+  'cable2': NavItem(assetName: 'assets/cable.svg', text: 'TES1'),
+  'pdam2': NavItem(assetName: 'assets/pdam.svg', text: 'TES3'),
+  'bpjs2': NavItem(assetName: 'assets/bpjs.svg', text: 'TES4'),
+};
+
+const Map<String, List<NavItem>> dockBaseOnPreference = {
+  'SEND_MONEY': [
+    NavItem(assetName: 'assets/dock-transfer.svg', text: 'Transfer'),
+    NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
+    NavItem(assetName: 'assets/dock-history.svg', text: 'History'),
+    NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
+  ],
+  'QRIS': [
+    NavItem(assetName: 'assets/dock-bills.svg', text: 'Bills'),
+    NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
+    NavItem(assetName: 'assets/dock-transfer.svg', text: 'Transfer'),
+    NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
+  ],
+  'SAVING': [
+    NavItem(assetName: 'assets/dock-tabungan.svg', text: 'Tabungan'),
+    NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
+    NavItem(assetName: 'assets/dock-history.svg', text: 'History'),
+    NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
+  ],
+  'BILLS': [
+    NavItem(assetName: 'assets/dock-bills.svg', text: 'Bills'),
+    NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
+    NavItem(assetName: 'assets/dock-paylater.svg', text: 'Paylater'),
+    NavItem(assetName: 'assets/dock-transfer.svg', text: 'Transfer'),
+  ],
 };

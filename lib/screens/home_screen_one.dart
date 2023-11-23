@@ -5,7 +5,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:goto_hack_2023/constant.dart';
 import 'package:goto_hack_2023/constants/nav_items.dart';
-import 'package:goto_hack_2023/screens/test_berli_home.dart';
 import 'package:goto_hack_2023/screens/bottom_nav.dart';
 import 'package:goto_hack_2023/screens/nav_item.dart';
 import 'package:sizer/sizer.dart';
@@ -136,11 +135,17 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
       bottomNavigationBar: BottomNavbarWidget(
         showHiddenMenus: showModal,
         draggable: false,
+        navItems: dockBaseOnPreference[widget.docState] ?? [],
       ),
     );
   }
 
   void _showModal(BuildContext context) {
+    List<NavItem> flattenedDocks =
+        dockBaseOnPreference.values.expand((list) => list).toList();
+
+    List<NavItem> uniqueFlattenedDocks = flattenedDocks.toSet().toList();
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -165,17 +170,19 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
                       crossAxisSpacing: 8.0, // Adjust the gap between columns
                       mainAxisSpacing: 8.0, // Adjust the gap between rows
                     ),
-                    itemCount: navConstants.length,
+                    itemCount: uniqueFlattenedDocks.length,
                     itemBuilder: (BuildContext context, int index) {
                       return NavigationItem(
-                          draggable: true,
-                          navItem: navConstants.entries.toList()[index].value);
+                        draggable: true,
+                        navItem: uniqueFlattenedDocks[index],
+                      );
                     },
                   ),
                 ),
               ),
-              const BottomNavbarWidget(
+              BottomNavbarWidget(
                 draggable: true,
+                navItems: dockBaseOnPreference[widget.docState] ?? [],
               ),
             ],
           ),

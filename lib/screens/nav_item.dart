@@ -48,47 +48,12 @@ class _NavigationItemState extends State<NavigationItem>
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: 70.0,
-                  height: 70.0,
-                  decoration: AlohaBoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [-0.6, 1],
-                        colors: [
-                          Color.fromARGB(0, 0, 0, 0),
-                          Color.fromARGB(30, 49, 49, 49),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(9999)),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 60.0,
-                      height: 60.0,
-                      decoration: AlohaBoxDecoration(
-                          border: Border.all(
-                              color: AlohaTheme.of(context)
-                                  .colors
-                                  .borderMutePrimary),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(9999)),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          widget.navItem.assetName,
-                          fit: BoxFit.contain,
-                          height: 24,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+            Center(
+              child: SvgPicture.asset(
+                widget.navItem.assetName,
+                fit: BoxFit.contain,
+                height: 52,
+              ),
             ),
             const SizedBox(height: 5.0),
             Text(widget.navItem.text,
@@ -99,7 +64,7 @@ class _NavigationItemState extends State<NavigationItem>
         );
       },
       onAcceptWithDetails: (details) {
-        print(details.data);
+        // TODO: Switch item logic here
       },
     );
   }
