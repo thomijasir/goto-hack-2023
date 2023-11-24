@@ -50,7 +50,8 @@ class _NavigationItemState extends State<NavigationItem>
               child: _getNavItem(),
             )
           : _getNavItem(),
-    ).animate();
+    );
+    // .animate(onPlay: (ctx) => ctx.repeat()).shimmer();
   }
 
   Widget _getNavItem() {
