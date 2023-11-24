@@ -15,10 +15,7 @@ dependencies:
   animations: ^2.0.8
   flutter_animate: ^4.2.0+1
   asphalt_aloha:
-    git:
-      url: git@source.golabs.io:asphalt/asphalt-aloha-flutter.git
-      path: asphalt_aloha
-      ref: 2.2.0
+    path: /Users/thomi.jasir/Workspace/asphalt-aloha-flutter-2.2.0/asphalt_aloha
   draggable_customized_btn_navy_bar: ^1.0.1
 
 dev_dependencies:

@@ -35,7 +35,6 @@ Map<String, List<NavItem>> dockBaseOnPreference = {
     NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
     NavItem(assetName: 'assets/dock-history.svg', text: 'History'),
     NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
-    NavItem(assetName: 'assets/dock-paylater.svg', text: 'Paylater'),
   ],
   'QRIS': [
     NavItem(assetName: 'assets/dock-bills.svg', text: 'Bills'),
