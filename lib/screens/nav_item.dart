@@ -8,12 +8,16 @@ class NavigationItem extends StatefulWidget {
   final NavItem navItem;
   final Function? showHiddenMenus;
   final bool? draggable;
+  final Function(NavItem, NavItem)? updateMainDocs;
+  final bool? isMainDock;
 
   const NavigationItem({
     super.key,
     required this.navItem,
     this.showHiddenMenus,
     this.draggable,
+    this.updateMainDocs,
+    this.isMainDock,
   });
 
   @override
@@ -41,7 +45,9 @@ class _NavigationItemState extends State<NavigationItem>
             ));
       },
       onLongPress: () {
-        widget.showHiddenMenus!();
+        if (widget.showHiddenMenus != null) {
+          widget.showHiddenMenus!();
+        }
       },
       child: widget.draggable != null && widget.draggable == true
           ? Draggable(
@@ -76,7 +82,9 @@ class _NavigationItemState extends State<NavigationItem>
         );
       },
       onAcceptWithDetails: (details) {
-        // TODO: Switch item logic here
+        if (widget.updateMainDocs != null) {
+          widget.updateMainDocs!(details.data, widget.navItem);
+        }
       },
     );
   }

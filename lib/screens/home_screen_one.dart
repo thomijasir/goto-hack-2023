@@ -26,9 +26,19 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
   final ContainerTransitionType _containerTransitionType =
       ContainerTransitionType.fade;
 
+  List<NavItem> mainDocs = [];
+
+  _BottomSheetState? _bottomSheetState;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      mainDocs = dockBaseOnPreference[widget.docState] ?? [];
+    });
   }
 
   @override
@@ -37,7 +47,31 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
   }
 
   void showModal() {
-    _showModal(context);
+    _showModal(_scaffoldKey.currentContext!);
+  }
+
+  void updateMainDocs(NavItem sourceDoc, NavItem targetDoc) {
+    int souceDocIndex =
+        mainDocs.indexWhere((item) => item.assetName == sourceDoc.assetName);
+    int targetDocIndex =
+        mainDocs.indexWhere((item) => item.assetName == targetDoc.assetName);
+
+    if (souceDocIndex != -1) {
+      setState(() {
+        NavItem itemToMove = mainDocs.removeAt(souceDocIndex);
+        mainDocs.insert(targetDocIndex, itemToMove);
+      });
+
+      // Update the state of the bottom sheet explicitly
+      _bottomSheetState?.updateState(mainDocs);
+    } else {
+      print('Item with assetName not found.');
+      setState(() {
+        mainDocs[targetDocIndex] = sourceDoc;
+      });
+
+      print(mainDocs.map((e) => e.text));
+    }
   }
 
   @override
@@ -45,6 +79,7 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
     final List<String> getRefIcons = mapPreferences[widget.docState] ?? [];
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xFFF5F5F5),
       body: Stack(
         children: [
@@ -144,57 +179,19 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
       bottomNavigationBar: BottomNavbarWidget(
         showHiddenMenus: showModal,
         draggable: false,
-        navItems: dockBaseOnPreference[widget.docState] ?? [],
+        navItems: mainDocs,
       ),
     );
   }
 
   void _showModal(BuildContext context) {
-    List<NavItem> flattenedDocks =
-        dockBaseOnPreference.values.expand((list) => list).toList();
-
-    List<NavItem> uniqueFlattenedDocks = flattenedDocks.toSet().toList();
-
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          decoration: AlohaBoxDecoration(
-            color: AlohaTheme.of(context).colors.fillBackgroundQuaternary,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(38.0),
-              topRight: Radius.circular(38.0),
-            ),
-          ),
-          height: 600.0,
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(38),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 8.0, // Adjust the gap between columns
-                      mainAxisSpacing: 8.0, // Adjust the gap between rows
-                    ),
-                    itemCount: uniqueFlattenedDocks.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return NavigationItem(
-                        draggable: true,
-                        navItem: uniqueFlattenedDocks[index],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              BottomNavbarWidget(
-                draggable: true,
-                navItems: dockBaseOnPreference[widget.docState] ?? [],
-              ),
-            ],
-          ),
+        return _BottomSheetWidget(
+          initialState: mainDocs,
+          onWidgetCreated: (state) => _bottomSheetState = state,
+          updateMainDocs: updateMainDocs,
         );
       },
     );
@@ -267,6 +264,83 @@ class _SearchInputState extends State<SearchInput> {
               .shimmer(),
         ],
       )),
+    );
+  }
+}
+
+class _BottomSheetWidget extends StatefulWidget {
+  final List<NavItem> initialState;
+  final void Function(_BottomSheetState) onWidgetCreated;
+  final Function(NavItem, NavItem) updateMainDocs;
+
+  const _BottomSheetWidget({
+    Key? key,
+    required this.initialState,
+    required this.onWidgetCreated,
+    required this.updateMainDocs,
+  }) : super(key: key);
+
+  @override
+  _BottomSheetState createState() => _BottomSheetState();
+}
+
+class _BottomSheetState extends State<_BottomSheetWidget> {
+  List<NavItem> _mainDocs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _mainDocs = widget.initialState;
+
+    widget.onWidgetCreated(this);
+  }
+
+  void updateState(List<NavItem> newState) {
+    setState(() {
+      _mainDocs = newState;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: AlohaBoxDecoration(
+        color: AlohaTheme.of(context).colors.fillBackgroundQuaternary,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(38.0),
+          topRight: Radius.circular(38.0),
+        ),
+      ),
+      height: 600.0,
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(38),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 8.0, // Adjust the gap between columns
+                  mainAxisSpacing: 8.0, // Adjust the gap between rows
+                ),
+                itemCount: docks.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return NavigationItem(
+                    draggable: true,
+                    navItem: docks[index],
+                    isMainDock: false,
+                  );
+                },
+              ),
+            ),
+          ),
+          BottomNavbarWidget(
+            draggable: true,
+            navItems: _mainDocs,
+            updateMainDocs: widget.updateMainDocs,
+          ),
+        ],
+      ),
     );
   }
 }
