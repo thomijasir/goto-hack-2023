@@ -12,9 +12,9 @@ class RefScreen extends StatefulWidget {
 }
 
 class _RefScreenState extends State<RefScreen> {
-  double currentSliderSendingMoney = 10;
-  double currentSliderPayBills = 30;
-  double currentSliderPayQr = 20;
+  double currentSliderSendingMoney = 0;
+  double currentSliderPayBills = 0;
+  double currentSliderPayQr = 0;
   double currentSliderSaving = 0;
 
   String getUI() {
@@ -35,6 +35,7 @@ class _RefScreenState extends State<RefScreen> {
 
   @override
   void initState() {
+    super.initState();
     currentSliderSendingMoney = 10;
     currentSliderPayBills = 20;
     currentSliderPayQr = 30;
@@ -206,7 +207,7 @@ class _RefScreenState extends State<RefScreen> {
                       onTap: () {
                         final progress = AlohaFullScreenSpinner.of(context);
                         progress.show();
-                        Future.delayed(const Duration(seconds: 3), () {
+                        Future.delayed(const Duration(seconds: 2), () {
                           progress.dismiss();
                           var result = getUI();
                           Navigator.push(

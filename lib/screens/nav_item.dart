@@ -1,5 +1,6 @@
 import 'package:asphalt_aloha/asphalt_aloha.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:goto_hack_2023/constants/nav_items.dart';
 
@@ -29,6 +30,16 @@ class _NavigationItemState extends State<NavigationItem>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Scaffold(
+                appBar: AppBar(),
+                body: Center(child: Text('CONTENT FOR ${widget.navItem.text}')),
+              ),
+            ));
+      },
       onLongPress: () {
         widget.showHiddenMenus!();
       },
@@ -39,7 +50,7 @@ class _NavigationItemState extends State<NavigationItem>
               child: _getNavItem(),
             )
           : _getNavItem(),
-    );
+    ).animate();
   }
 
   Widget _getNavItem() {

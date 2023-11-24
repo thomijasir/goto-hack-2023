@@ -53,7 +53,6 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
               height: 6.h,
             ),
             Expanded(
-              flex: 6,
               child: Column(
                 children: [
                   Expanded(
@@ -72,8 +71,10 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        cardEntertainmentPng,
+                      SizedBox(
+                        child: Image.asset(
+                          cardEntertainmentPng,
+                        ),
                       ),
                     ],
                   )),
@@ -87,7 +88,16 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
                             getRefIcons.length,
                             (int index) => GestureDetector(
                                   onTap: () {
-                                    print(widget.docState);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Scaffold(
+                                            appBar: AppBar(),
+                                            body: const Center(
+                                                child: Text(
+                                                    'PLACEHOLDER QUICK ACTION')),
+                                          ),
+                                        ));
                                   },
                                   child: SizedBox(
                                     width: 18.w,
@@ -100,27 +110,26 @@ class _HomeScreenOneState extends State<HomeScreenOne> {
                 ],
               ),
             ).animate(delay: const Duration(milliseconds: 1000)).shimmer(),
-            Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OpenContainer(
-                      transitionType: _containerTransitionType,
-                      transitionDuration: const Duration(milliseconds: 500),
-                      openBuilder: (context, _) => const SearchInput(),
-                      closedShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.w)),
-                      closedElevation: 2,
-                      closedColor: Colors.white,
-                      closedBuilder: (context, _) {
-                        return SizedBox(
-                            width: 24.w, child: Image.asset(buttonSearchAsset));
-                      },
-                    ),
-                  ],
-                )),
+            Padding(
+              padding: EdgeInsets.only(bottom: 2.h),
+              child: Column(
+                children: [
+                  OpenContainer(
+                    transitionType: _containerTransitionType,
+                    transitionDuration: const Duration(milliseconds: 500),
+                    openBuilder: (context, _) => const SearchInput(),
+                    closedShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.w)),
+                    closedElevation: 2,
+                    closedColor: Colors.white,
+                    closedBuilder: (context, _) {
+                      return SizedBox(
+                          width: 24.w, child: Image.asset(buttonSearchAsset));
+                    },
+                  ),
+                ],
+              ),
+            ),
           ]),
           Positioned(
             right: 0,
