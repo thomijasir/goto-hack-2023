@@ -7,12 +7,14 @@ class BottomNavbarWidget extends StatelessWidget {
   final List<NavItem> navItems;
   final Function? showHiddenMenus;
   final bool? draggable;
+  final Function(NavItem, NavItem)? updateMainDocs;
 
   const BottomNavbarWidget({
     super.key,
     this.showHiddenMenus,
     this.draggable,
     required this.navItems,
+    this.updateMainDocs,
   });
 
   @override
@@ -39,6 +41,8 @@ class BottomNavbarWidget extends StatelessWidget {
               NavigationItem(
                 navItem: entry,
                 showHiddenMenus: showHiddenMenus,
+                updateMainDocs: updateMainDocs,
+                isMainDock: true,
                 draggable: draggable,
               ),
           ],

@@ -2,13 +2,13 @@ class NavItem {
   final String assetName;
   final String text;
 
-  const NavItem({
+  NavItem({
     required this.assetName,
     required this.text,
   });
 }
 
-const Map<String, NavItem> navConstants = {
+Map<String, NavItem> navConstants = {
   'pln': NavItem(assetName: 'assets/pln.svg', text: 'PLN'),
   'cable': NavItem(assetName: 'assets/cable.svg', text: 'Cable & TV'),
   'pdam': NavItem(assetName: 'assets/pdam.svg', text: 'PDAM'),
@@ -19,12 +19,23 @@ const Map<String, NavItem> navConstants = {
   'bpjs2': NavItem(assetName: 'assets/bpjs.svg', text: 'TES4'),
 };
 
-const Map<String, List<NavItem>> dockBaseOnPreference = {
+List<NavItem> docks = [
+  NavItem(assetName: 'assets/dock-transfer.svg', text: 'Transfer'),
+  NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
+  NavItem(assetName: 'assets/dock-history.svg', text: 'History'),
+  NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
+  NavItem(assetName: 'assets/dock-tabungan.svg', text: 'Tabungan'),
+  NavItem(assetName: 'assets/dock-bills.svg', text: 'Bills'),
+  NavItem(assetName: 'assets/dock-paylater.svg', text: 'Paylater'),
+];
+
+Map<String, List<NavItem>> dockBaseOnPreference = {
   'SEND_MONEY': [
     NavItem(assetName: 'assets/dock-transfer.svg', text: 'Transfer'),
     NavItem(assetName: 'assets/dock-qris.svg', text: 'QRIS'),
     NavItem(assetName: 'assets/dock-history.svg', text: 'History'),
     NavItem(assetName: 'assets/dock-cashout.svg', text: 'Cashout'),
+    NavItem(assetName: 'assets/dock-paylater.svg', text: 'Paylater'),
   ],
   'QRIS': [
     NavItem(assetName: 'assets/dock-bills.svg', text: 'Bills'),
